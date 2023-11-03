@@ -1,19 +1,25 @@
 document.addEventListener("DOMContentLoaded", function () {
+  console.log("Popup loaded.");
   const removeShortsCheckbox = document.getElementById("removeShorts");
 
   // Function to toggle the Shorts remover on/off
   function toggleShortsRemover(isEnabled) {
+    console.log("Toggle function called with isEnabled: " + isEnabled);
+    
     if (isEnabled) {
+      console.log("isEnabled branch executed");
       removeYouTubeShorts(); // Call the function to remove Shorts
     } else {
+      console.log("else branch executed");
       restoreYouTubeShorts(); // Call the function to restore Shorts if needed
     }
   }
+  
 
   // Function to remove YouTube Shorts
   function removeYouTubeShorts() {
     // Replace 'your-selector-for-Shorts' with the actual CSS selector
-    const shortsElements = document.querySelectorAll('#dismissible');
+    const shortsElements = document.getElementById('logo-icon');
 
     shortsElements.forEach((element) => {
       element.style.display = 'none'; // Hide the element
@@ -28,19 +34,22 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Initialize the checkbox based on the user's stored preference
-  chrome.storage.local.get("isEnabled", function (result) {
-    removeShortsCheckbox.checked = result.isEnabled || false;
-    toggleShortsRemover(result.isEnabled || false);
-  });
+  const isEnabled = localStorage.getItem("isEnabled") === "true"; // Convert to a boolean
+  removeShortsCheckbox.checked = isEnabled;
+  toggleShortsRemover(isEnabled);
 
+  // Event Listener for Checkbox Change
   removeShortsCheckbox.addEventListener("change", function () {
+    console.log("Checkbox changed: " + removeShortsCheckbox.checked);
     const isEnabled = removeShortsCheckbox.checked;
-
+    
     // Save the user's preference in local storage
-    chrome.storage.local.set({ isEnabled });
-
+    localStorage.setItem("isEnabled", isEnabled);
+    
     // Toggle the Shorts remover
     toggleShortsRemover(isEnabled);
   });
+
+  
 });
 

@@ -1,17 +1,21 @@
 // content.js
 
-// Function to identify and hide YouTube Shorts elements
-function hideYouTubeShorts() {
-  // Replace 'your-selector-for-Shorts' with the actual CSS selector
-  const shortsElements = document.querySelectorAll('#dismissible');
+console.log("Content script loaded.");
 
-  shortsElements.forEach((element) => {
-    element.style.display = 'none'; // Hide the element
+// Function to identify and hide the YouTube logo
+function hideYouTubeLogo() {
+  console.log("cat");
+  const logoElement = document.getElementById('logo-icon'); //this WORKES!!
+
+  if (logoElement) {
+    logoElement.style.display = 'none'; // Hide the element
     // OR
-    // element.remove(); // Remove the element from the DOM
-  });
+    // logoElement.remove(); // Remove the element from the DOM
+  }
 }
 
-// Call the hideYouTubeShorts function to start hiding Shorts
-hideYouTubeShorts();
+// Call the hideYouTubeLogo function to hide the logo
+hideYouTubeLogo();
+
+
 
