@@ -1,9 +1,12 @@
 {
   "manifest_version": 3,
-  "name": "YouTube Shorts Remover",
+  "name": "YouTube Shorts Remover - For All",
   "version": "1.0",
   "description": "Remove YouTube Shorts from YouTube.com",
-  "permissions": ["activeTab"],
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
@@ -19,18 +22,11 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://www.youtube.com/*"],
-      "js": ["content.js"]
+      "matches": ["*://*.youtube.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
     }
-  ],
-  "browser_action": {
-    "default_popup": "popup.html",
-    "default_icon": {
-      "16": "images/icon16.png",
-      "48": "images/icon48.png",
-      "128": "images/icon128.png"
-    }
-  }
+  ]
 }
 
 
